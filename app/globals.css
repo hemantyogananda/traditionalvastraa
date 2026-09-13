@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-maroon-dark font-body;
+}
+
+::selection {
+  @apply bg-blush text-maroon-dark;
+}
+
+/* Custom scrollbar for horizontal product rails */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #C9A227;
+  border-radius: 999px;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-maroon px-6 py-3 text-sm font-medium text-cream transition-all duration-200 hover:bg-maroon-dark hover:shadow-cardHover active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-maroon px-6 py-3 text-sm font-medium text-maroon transition-all duration-200 hover:bg-maroon hover:text-cream active:scale-[0.98];
+  }
+  .btn-gold {
+    @apply inline-flex items-center justify-center rounded-full bg-gold px-6 py-3 text-sm font-medium text-maroon-dark transition-all duration-200 hover:bg-gold-dark hover:text-cream active:scale-[0.98];
+  }
+  .section-title {
+    @apply font-serif text-2xl font-semibold text-maroon-dark sm:text-3xl;
+  }
+  .section-subtitle {
+    @apply mt-2 text-sm text-maroon-light/70 sm:text-base;
+  }
+  .card {
+    @apply rounded-xl2 bg-white shadow-card transition-shadow duration-300 hover:shadow-cardHover;
+  }
+  .input-field {
+    @apply w-full rounded-lg border border-maroon/15 bg-white px-4 py-2.5 text-sm text-maroon-dark placeholder:text-maroon-dark/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold;
+  }
+  .container-px {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
