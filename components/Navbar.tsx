@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { useAuth } from "@/context/AuthContext";
 
 type NavLink = {
   href: string;
@@ -44,6 +45,7 @@ export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
   const { totalItems } = useCart();
   const { wishlist } = useWishlist();
+  const { user } = useAuth();
   const router = useRouter();
 
   function handleSearchSubmit(e: React.FormEvent) {
@@ -112,6 +114,9 @@ export default function Navbar() {
           >
             <SearchIcon />
           </button>
+          <Link href={user ? "/account" : "/login"} aria-label="Account" className="text-maroon-dark transition-colors hover:text-gold">
+            <UserIcon />
+          </Link>
           <Link href="/wishlist" aria-label="Wishlist" className="relative text-maroon-dark transition-colors hover:text-gold">
             <HeartIcon />
             {wishlist.length > 0 && <CountBadge count={wishlist.length} />}
@@ -196,6 +201,14 @@ function SearchIcon() {
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
       <circle cx="11" cy="11" r="7" />
       <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  );
+}
+function UserIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" />
     </svg>
   );
 }

@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { getAllProducts } from "@/lib/products";
 import { mockOrders, mockEnquiries } from "@/lib/admin-data";
 import { Product, Order, Enquiry } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
 
 type Tab = "overview" | "products" | "orders" | "enquiries";
 
@@ -13,17 +15,33 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>(getAllProducts());
   const [orders, setOrders] = useState<Order[]>(mockOrders);
   const [enquiries, setEnquiries] = useState<Enquiry[]>(mockEnquiries);
+  const { user, signOut } = useAuth();
+  const router = useRouter();
 
   const totalSales = orders.reduce((s, o) => s + o.total, 0);
   const totalOrders = orders.length;
   const lowStockCount = products.filter((p) => p.stockStatus === "low-stock").length;
   const outOfStockCount = products.filter((p) => p.stockStatus === "out-of-stock").length;
 
+  async function handleSignOut() {
+    await signOut();
+    router.push("/admin/login");
+    router.refresh();
+  }
+
   return (
     <div className="container-px py-10">
-      <h1 className="section-title mb-2 text-left">Admin Dashboard</h1>
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
+        <h1 className="section-title text-left">Admin Dashboard</h1>
+        <div className="flex items-center gap-3 text-sm text-maroon-dark/60">
+          {user?.email && <span>{user.email}</span>}
+          <button onClick={handleSignOut} className="font-medium text-maroon hover:underline">
+            Sign Out
+          </button>
+        </div>
+      </div>
       <p className="mb-8 text-sm text-maroon-dark/60">
-        This dashboard uses in-memory mock data for the demo — see the README for how to connect a real database and authentication.
+        Products/Orders/Enquiries here still use in-memory mock data — see the DB roadmap for connecting a real database. Sign-in is real Supabase auth, restricted to admin accounts.
       </p>
 
       <div className="mb-8 flex gap-2 overflow-x-auto rounded-full bg-white p-1.5 shadow-card">

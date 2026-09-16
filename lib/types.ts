@@ -72,3 +72,29 @@ export interface Enquiry {
   date: string;
   status: "New" | "Replied" | "Closed";
 }
+
+export interface OrderItemSummary {
+  name: string;
+  quantity: number;
+  price: number;
+  size?: string;
+  color?: string;
+}
+
+export interface OrderEmailDetails {
+  orderId: string;
+  transactionId?: string;
+  paymentMethod: "UPI" | "COD" | "Card";
+  customerName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+  items: OrderItemSummary[];
+  subtotal: number;
+  shipping: number;
+  total: number;
+  date: string;
+}

@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
+import { AuthProvider } from "@/context/AuthContext";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -23,14 +24,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <CartProvider>
-          <WishlistProvider>
-            <AnnouncementBar />
-            <Navbar />
-            <main className="min-h-screen">{children}</main>
-            <Footer />
-          </WishlistProvider>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <WishlistProvider>
+              <AnnouncementBar />
+              <Navbar />
+              <main className="min-h-screen">{children}</main>
+              <Footer />
+            </WishlistProvider>
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

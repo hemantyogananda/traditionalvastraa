@@ -9,6 +9,7 @@ function OrderSuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId") || "TV000000";
   const total = Number(searchParams.get("total") || 0);
+  const txnId = searchParams.get("txnId");
 
   return (
     <div className="container-px flex flex-col items-center py-24 text-center">
@@ -22,8 +23,12 @@ function OrderSuccessContent() {
         Order <span className="font-semibold text-maroon">#{orderId}</span> has been placed successfully.
       </p>
       {total > 0 && <p className="mt-2 text-sm text-maroon-dark/70">Order total: {formatPrice(total)}</p>}
+      {txnId && (
+        <p className="mt-1 text-xs text-maroon-dark/50">Transaction ID: {txnId}</p>
+      )}
       <p className="mt-4 max-w-md text-sm text-maroon-dark/60">
-        We&apos;ll confirm your order shortly on WhatsApp/SMS with delivery details. Thank you for supporting a small, handmade business. 🪷
+        A confirmation email is on its way to your inbox. We&apos;ll also confirm your order shortly on WhatsApp/SMS
+        with delivery details. Thank you for supporting a small, handmade business. 🪷
       </p>
       <div className="mt-8 flex gap-4">
         <Link href="/shop" className="btn-primary">
